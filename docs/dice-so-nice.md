@@ -6,14 +6,29 @@ This document is the implementation contract for Monster Hunter dice.
 
 The module registers:
 
-- Dice system ID: `monster-hunter`
-- Colorset ID: `monster-hunter-guild`
+- Guild-pair system ID: `monster-hunter`
+- Rathalos system ID: `monster-hunter-rathalos`
+- Guild colorset plus three Rathalos colorsets
 - Full-color image labels using `source-over` composition
 - Private Rathian/Rathalos presets for every supported numbered shape: d2, d4,
   d6, d8, d10, d12, d14, d16, d20, d24, d30 and d100
 
 Private artwork is loaded only when both expected WebP files are installed.
 Missing private files never prevent the public module from loading.
+
+## Rathalos collection
+
+The Rathalos collection uses the Rathalos icon on both special faces and offers
+three independently selectable appearances:
+
+| Variant | Die | Veins | Numbers |
+| --- | --- | --- | --- |
+| Ember | orange | blue | cream |
+| Ivory | cream | blue | orange |
+| Azure Script | orange | cream | blue |
+
+The vein textures are original module assets. The full-color monster face
+remains a private local asset.
 
 ## Face convention
 

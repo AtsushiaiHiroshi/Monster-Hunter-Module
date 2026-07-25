@@ -35,6 +35,10 @@ replaces the low face, Rathalos replaces the highest face, and Rathalos replaces
 See [the Dice So Nice implementation contract](docs/dice-so-nice.md) for face
 mapping, performance rules, effects and the custom GLB roadmap.
 
+The first dedicated monster collection is Rathalos, with Ember, Ivory and Azure
+Script color variants. Additional monster systems can reuse the same preset
+factory while supplying their own private face art and public color textures.
+
 ## Mount API
 
 ```js

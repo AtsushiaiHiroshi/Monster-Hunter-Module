@@ -23,6 +23,14 @@ Enable the module in a world running D&D 5e on Foundry VTT v13.
 
 Dice So Nice is recommended, but not required.
 
+### Private full-color dice faces
+
+Private-use artwork can be installed into `assets/dice/private`. These files are
+ignored by Git and are not included in releases. When `rathian.webp` and
+`rathalos.webp` are present, the module registers a complete Dice So Nice set:
+Rathian replaces the low face, Rathalos replaces the highest face, and Rathalos
+replaces `00` on percentile dice.
+
 ## Mount API
 
 ```js

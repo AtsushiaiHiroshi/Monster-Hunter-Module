@@ -16,10 +16,23 @@ The module registers:
 Private artwork is loaded only when both expected WebP files are installed.
 Missing private files never prevent the public module from loading.
 
-## Rathalos collection
+## Monster family collections
 
-The Rathalos collection uses the Rathalos icon on both special faces and offers
-three independently selectable appearances:
+Dedicated collections use the selected monster icon on both special faces.
+The catalog currently contains 21 systems: the Guild Pair plus 20 monsters
+across six variant families.
+
+| Family | Collections |
+| --- | --- |
+| Rathalos | Normal, Maldito |
+| Zinogre | Normal, Stygian, Thunderlord |
+| Anjanath | Normal, Fulgur |
+| Rathian | Normal, Pink, Gold, Maldita |
+| Nargacuga | Normal, Green, Silverwind |
+| Tigrex | Normal, Brute, Molten, Grimclaw |
+| Lagiacrus | Normal, Ivory |
+
+Normal Rathalos offers three independently selectable arrangements:
 
 | Variant | Die | Veins | Numbers |
 | --- | --- | --- | --- |
@@ -27,8 +40,8 @@ three independently selectable appearances:
 | Ivory | cream | blue | orange |
 | Azure Script | orange | cream | blue |
 
-The vein textures are original module assets. The full-color monster face
-remains a private local asset.
+All vein textures are original module assets. Full-color monster faces remain
+private local assets.
 
 ## Face convention
 

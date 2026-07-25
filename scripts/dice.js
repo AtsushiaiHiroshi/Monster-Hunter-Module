@@ -6,6 +6,8 @@ const COLLECTIONS = Object.freeze([
   { id: "monster-hunter", name: "Monster Hunter — Guild Pair", low: "rathian", high: "rathalos", colorset: "monster-hunter-guild" },
   { id: "monster-hunter-rathalos", name: "Monster Hunter — Rathalos", icon: "rathalos" },
   { id: "monster-hunter-dreadking-rathalos", name: "Monster Hunter — Rathalos Maldito", icon: "dreadking-rathalos" },
+  { id: "monster-hunter-azure-rathalos", name: "Monster Hunter — Azure Rathalos", icon: "azure-rathalos" },
+  { id: "monster-hunter-silver-rathalos", name: "Monster Hunter — Silver Rathalos", icon: "silver-rathalos" },
   { id: "monster-hunter-zinogre", name: "Monster Hunter — Zinogre", icon: "zinogre" },
   { id: "monster-hunter-stygian-zinogre", name: "Monster Hunter — Stygian Zinogre", icon: "stygian-zinogre" },
   { id: "monster-hunter-thunderlord-zinogre", name: "Monster Hunter — Thunderlord Zinogre", icon: "thunderlord-zinogre" },
@@ -24,6 +26,21 @@ const COLLECTIONS = Object.freeze([
   { id: "monster-hunter-grimclaw-tigrex", name: "Monster Hunter — Grimclaw Tigrex", icon: "grimclaw-tigrex" },
   { id: "monster-hunter-lagiacrus", name: "Monster Hunter — Lagiacrus", icon: "lagiacrus" },
   { id: "monster-hunter-ivory-lagiacrus", name: "Monster Hunter — Ivory Lagiacrus", icon: "ivory-lagiacrus" }
+  ,{ id: "monster-hunter-yian-kut-ku", name: "Monster Hunter — Yian Kut-Ku", icon: "yian-kut-ku" }
+  ,{ id: "monster-hunter-blue-yian-kut-ku", name: "Monster Hunter — Blue Yian Kut-Ku", icon: "blue-yian-kut-ku" }
+  ,{ id: "monster-hunter-yian-garuga", name: "Monster Hunter — Yian Garuga", icon: "yian-garuga" }
+  ,{ id: "monster-hunter-deadeye-yian-garuga", name: "Monster Hunter — Deadeye Yian Garuga", icon: "deadeye-yian-garuga" }
+  ,{ id: "monster-hunter-kushala-daora", name: "Monster Hunter — Kushala Daora", icon: "kushala-daora" }
+  ,{ id: "monster-hunter-velkhana", name: "Monster Hunter — Velkhana", icon: "velkhana" }
+  ,{ id: "monster-hunter-rajang", name: "Monster Hunter — Rajang", icon: "rajang" }
+  ,{ id: "monster-hunter-teostra", name: "Monster Hunter — Teostra", icon: "teostra" }
+  ,{ id: "monster-hunter-kirin", name: "Monster Hunter — Kirin", icon: "kirin" }
+  ,{ id: "monster-hunter-oroshi-kirin", name: "Monster Hunter — Oroshi Kirin", icon: "oroshi-kirin" }
+  ,{ id: "monster-hunter-namielle", name: "Monster Hunter — Namielle", icon: "namielle" }
+  ,{ id: "monster-hunter-malzeno", name: "Monster Hunter — Malzeno", icon: "malzeno" }
+  ,{ id: "monster-hunter-thunder-serpent-narwa", name: "Monster Hunter — Thunder Serpent Narwa", icon: "thunder-serpent-narwa" }
+  ,{ id: "monster-hunter-wind-serpent-ibushi", name: "Monster Hunter — Wind Serpent Ibushi", icon: "wind-serpent-ibushi" }
+  ,{ id: "monster-hunter-yama-tsukami", name: "Monster Hunter — Yama Tsukami", icon: "yama-tsukami" }
 ]);
 
 const TEXTURES = Object.freeze([
@@ -47,6 +64,8 @@ const COLORSETS = Object.freeze([
   ["monster-hunter-rathalos-ivory", "Rathalos — Ivory", "Rathalos", "#d95b24", "#ead6aa", "#245e96", "mhm-rathalos-blue"],
   ["monster-hunter-rathalos-azure", "Rathalos — Azure Script", "Rathalos", "#2769a2", "#bd4b20", "#ead6aa", "mhm-rathalos-cream"],
   ["monster-hunter-dreadking-rathalos", "Rathalos Maldito — Black Flame", "Rathalos Maldito", "#f0d5ad", "#351417", "#ad2634", "mhm-lava"],
+  ["monster-hunter-azure-rathalos", "Azure Rathalos — Blue Sky", "Rathalos", "#f1dfbc", "#32688f", "#d76432", "mhm-rathalos-cream"],
+  ["monster-hunter-silver-rathalos", "Silver Rathalos — Silver Sun", "Rathalos", "#263342", "#c7ced1", "#a74332", "mhm-rathalos-blue"],
   ["monster-hunter-zinogre", "Zinogre — Thunder", "Zinogre", "#f6dc45", "#24598d", "#e6e0c4", "mhm-lightning"],
   ["monster-hunter-stygian-zinogre", "Stygian Zinogre — Dragon", "Zinogre", "#f0ddd0", "#211b25", "#ba263b", "mhm-crimson"],
   ["monster-hunter-thunderlord-zinogre", "Thunderlord Zinogre — Apex", "Zinogre", "#18263c", "#d8ae2f", "#66b8dd", "mhm-ice"],
@@ -65,6 +84,21 @@ const COLORSETS = Object.freeze([
   ["monster-hunter-grimclaw-tigrex", "Grimclaw Tigrex — Rending", "Tigrex", "#e2e5e7", "#2e3f55", "#bd472d", "mhm-crimson"],
   ["monster-hunter-lagiacrus", "Lagiacrus — Abyssal Current", "Lagiacrus", "#d5e7df", "#244b76", "#2e9b9b", "mhm-teal"],
   ["monster-hunter-ivory-lagiacrus", "Ivory Lagiacrus — Pearl Storm", "Lagiacrus", "#245e86", "#e5dfc8", "#d0ae38", "mhm-lightning"]
+  ,["monster-hunter-yian-kut-ku", "Yian Kut-Ku — Mischief", "Yian Kut-Ku", "#f1dfb7", "#c66a58", "#d8aa3d", "mhm-charcoal"]
+  ,["monster-hunter-blue-yian-kut-ku", "Blue Yian Kut-Ku — Azure Mischief", "Yian Kut-Ku", "#f1dfb7", "#477ea0", "#d06b38", "mhm-gold"]
+  ,["monster-hunter-yian-garuga", "Yian Garuga — Venom", "Yian Garuga", "#e4d9bd", "#392d43", "#aa3544", "mhm-poison"]
+  ,["monster-hunter-deadeye-yian-garuga", "Deadeye Yian Garuga — Survivor", "Yian Garuga", "#ded7c5", "#242a31", "#8f4058", "mhm-crimson"]
+  ,["monster-hunter-kushala-daora", "Kushala Daora — Steel Tempest", "Elder Dragons", "#202b36", "#9ba9ad", "#8bc3dc", "mhm-silver"]
+  ,["monster-hunter-velkhana", "Velkhana — Iceborne", "Elder Dragons", "#224d78", "#dce8e9", "#7dd4e4", "mhm-ice"]
+  ,["monster-hunter-rajang", "Rajang — Golden Fury", "Apex Beasts", "#252126", "#d5a52b", "#715039", "mhm-lightning"]
+  ,["monster-hunter-teostra", "Teostra — Solar Flame", "Elder Dragons", "#f0d7ad", "#a82f2e", "#d7a438", "mhm-lava"]
+  ,["monster-hunter-kirin", "Kirin — Thunderhoof", "Elder Dragons", "#274c73", "#e8e5da", "#61b9df", "mhm-lightning"]
+  ,["monster-hunter-oroshi-kirin", "Oroshi Kirin — Frozen Thunder", "Elder Dragons", "#26394f", "#b9d4df", "#f2f3eb", "mhm-ice"]
+  ,["monster-hunter-namielle", "Namielle — Abyssal Light", "Elder Dragons", "#57d2d2", "#2d315d", "#b44483", "mhm-teal"]
+  ,["monster-hunter-malzeno", "Malzeno — Blood Moon", "Elder Dragons", "#eee0c5", "#58243b", "#9e477f", "mhm-poison"]
+  ,["monster-hunter-thunder-serpent-narwa", "Narwa — Thunder Serpent", "Elder Dragons", "#392a50", "#d3a941", "#ebe1b9", "mhm-lightning"]
+  ,["monster-hunter-wind-serpent-ibushi", "Ibushi — Wind Serpent", "Elder Dragons", "#e8dfc1", "#477f83", "#c98643", "mhm-teal"]
+  ,["monster-hunter-yama-tsukami", "Yama Tsukami — Ancient Canopy", "Elder Dragons", "#dfe2bd", "#506646", "#b7963d", "mhm-venom"]
 ]);
 
 function asset(slug) {

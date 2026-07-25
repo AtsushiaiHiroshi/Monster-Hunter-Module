@@ -35,11 +35,13 @@ replaces the low face, Rathalos replaces the highest face, and Rathalos replaces
 See [the Dice So Nice implementation contract](docs/dice-so-nice.md) for face
 mapping, performance rules, effects and the custom GLB roadmap.
 
-The catalog includes Rathalos, Zinogre, Anjanath, Rathian, Nargacuga, Tigrex and
-Lagiacrus families with their principal variants. Each system supplies all 12
-numbered dice types, private full-color face art and an original public color
-texture. Normal Rathalos additionally offers Ember, Ivory and Azure Script
-arrangements.
+The catalog includes Rathalos, Zinogre, Anjanath, Rathian, Nargacuga, Tigrex,
+Lagiacrus, Yian Kut-Ku and Yian Garuga families with their principal variants.
+It also includes Kushala Daora, Velkhana, Teostra, Kirin, Oroshi Kirin,
+Namielle, Malzeno, Narwa, Ibushi, Yama Tsukami and Rajang. Each system supplies
+all 12 numbered dice types, private full-color face art and an original public
+color texture. Normal Rathalos additionally offers Ember, Ivory and Azure
+Script arrangements.
 
 ## Mount API
 

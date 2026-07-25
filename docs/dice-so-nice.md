@@ -19,18 +19,25 @@ Missing private files never prevent the public module from loading.
 ## Monster family collections
 
 Dedicated collections use the selected monster icon on both special faces.
-The catalog currently contains 21 systems: the Guild Pair plus 20 monsters
-across six variant families.
+The catalog currently contains 38 systems: the Guild Pair plus 37 dedicated
+monster collections.
 
 | Family | Collections |
 | --- | --- |
-| Rathalos | Normal, Maldito |
+| Rathalos | Normal, Azure, Silver, Maldito |
 | Zinogre | Normal, Stygian, Thunderlord |
 | Anjanath | Normal, Fulgur |
 | Rathian | Normal, Pink, Gold, Maldita |
 | Nargacuga | Normal, Green, Silverwind |
 | Tigrex | Normal, Brute, Molten, Grimclaw |
 | Lagiacrus | Normal, Ivory |
+| Yian Kut-Ku | Normal, Blue |
+| Yian Garuga | Normal, Deadeye |
+
+The elder-dragon collection currently includes Kushala Daora, Velkhana,
+Teostra, Kirin, Oroshi Kirin, Namielle, Malzeno, Thunder Serpent Narwa, Wind
+Serpent Ibushi and Yama Tsukami. Rajang is cataloged separately under apex
+beasts because it is a Fanged Beast rather than an Elder Dragon.
 
 Normal Rathalos offers three independently selectable arrangements:
 

@@ -31,6 +31,9 @@ ignored by Git and are not included in releases. When `rathian.webp` and
 Rathian replaces the low face, Rathalos replaces the highest face, and Rathalos
 replaces `00` on percentile dice.
 
+See [the Dice So Nice implementation contract](docs/dice-so-nice.md) for face
+mapping, performance rules, effects and the custom GLB roadmap.
+
 ## Mount API
 
 ```js

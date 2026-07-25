@@ -102,6 +102,7 @@ export function registerDiceSoNice() {
         texture: "bronze01",
         material: "metal",
         font: "Signika",
+        labelComposite: "source-over",
         visibility: "visible"
       },
       "default"

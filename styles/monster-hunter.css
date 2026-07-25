@@ -1,0 +1,21 @@
+:root {
+  --mhm-guild-red: #6e1f1f;
+  --mhm-guild-gold: #b58a45;
+  --mhm-parchment: #f3e6c6;
+}
+
+.mhm-no-magic [data-tab="spells"],
+.mhm-no-magic [data-tab="spellbook"],
+.mhm-no-magic .spellbook,
+.mhm-no-magic .item[data-item-type="spell"],
+.mhm-no-magic [data-type="spell"] {
+  display: none !important;
+}
+
+.mhm-badge {
+  color: var(--mhm-parchment);
+  background: var(--mhm-guild-red);
+  border: 1px solid var(--mhm-guild-gold);
+  border-radius: 3px;
+  padding: 0.15rem 0.4rem;
+}

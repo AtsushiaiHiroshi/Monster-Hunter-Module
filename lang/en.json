@@ -1,0 +1,19 @@
+{
+  "MHM.Settings.MagicPolicy.Name": "Non-magical content policy",
+  "MHM.Settings.MagicPolicy.Hint": "Block, warn about, or allow spells and content detected as magical.",
+  "MHM.Settings.MagicPolicy.Strict": "Strict — block",
+  "MHM.Settings.MagicPolicy.Warn": "Warn only",
+  "MHM.Settings.MagicPolicy.Off": "Disabled",
+  "MHM.Settings.HideMagicUi.Name": "Hide spellcasting UI",
+  "MHM.Settings.HideMagicUi.Hint": "Hide spell and spellbook controls on D&D 5e actor sheets.",
+  "MHM.Settings.EnableMounts.Name": "Enable monstie mounts",
+  "MHM.Settings.EnableMounts.Hint": "Expose the rider/monstie linking API.",
+  "MHM.Magic.Blocked": "\"{name}\" is forbidden by the non-magical policy ({reason}).",
+  "MHM.Magic.Unnamed": "Unnamed item",
+  "MHM.Mounts.Disabled": "The mount system is disabled.",
+  "MHM.Mounts.NotOwner": "You do not own this actor.",
+  "MHM.Mounts.ActorMissing": "A rider or mount actor could not be resolved.",
+  "MHM.Mounts.SameActor": "An actor cannot mount itself.",
+  "MHM.Mounts.Linked": "{rider} is now mounted on {mount}.",
+  "MHM.Errors.RequiresDnd5e": "Monster Hunter for D&D 5e requires the dnd5e game system."
+}

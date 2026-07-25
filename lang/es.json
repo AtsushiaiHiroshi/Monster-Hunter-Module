@@ -1,0 +1,19 @@
+{
+  "MHM.Settings.MagicPolicy.Name": "Política de contenido no mágico",
+  "MHM.Settings.MagicPolicy.Hint": "Bloquea, advierte o permite conjuros y contenido detectado como mágico.",
+  "MHM.Settings.MagicPolicy.Strict": "Estricto — bloquear",
+  "MHM.Settings.MagicPolicy.Warn": "Solo advertir",
+  "MHM.Settings.MagicPolicy.Off": "Desactivado",
+  "MHM.Settings.HideMagicUi.Name": "Ocultar interfaz de magia",
+  "MHM.Settings.HideMagicUi.Hint": "Oculta conjuros y controles del grimorio en las hojas de D&D 5e.",
+  "MHM.Settings.EnableMounts.Name": "Activar monturas monstie",
+  "MHM.Settings.EnableMounts.Hint": "Expone la API para enlazar jinete y monstie.",
+  "MHM.Magic.Blocked": "\"{name}\" está prohibido por la política no mágica ({reason}).",
+  "MHM.Magic.Unnamed": "Objeto sin nombre",
+  "MHM.Mounts.Disabled": "El sistema de monturas está desactivado.",
+  "MHM.Mounts.NotOwner": "No eres propietario de este actor.",
+  "MHM.Mounts.ActorMissing": "No se pudo encontrar al jinete o a la montura.",
+  "MHM.Mounts.SameActor": "Un actor no puede montarse a sí mismo.",
+  "MHM.Mounts.Linked": "{rider} ahora monta a {mount}.",
+  "MHM.Errors.RequiresDnd5e": "Monster Hunter para D&D 5e requiere el sistema dnd5e."
+}

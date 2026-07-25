@@ -9,7 +9,8 @@ The module registers:
 - Dice system ID: `monster-hunter`
 - Colorset ID: `monster-hunter-guild`
 - Full-color image labels using `source-over` composition
-- Private Rathian/Rathalos presets for d2, d4, d6, d8, d10, d12, d20 and d100
+- Private Rathian/Rathalos presets for every supported numbered shape: d2, d4,
+  d6, d8, d10, d12, d14, d16, d20, d24, d30 and d100
 
 Private artwork is loaded only when both expected WebP files are installed.
 Missing private files never prevent the public module from loading.
@@ -24,7 +25,11 @@ Missing private files never prevent the public module from loading.
 | d8 | Rathian (`1`) | Rathalos (`8`) |
 | d10 | Rathian (`1`) | Rathalos (`0` / `10`) |
 | d12 | Rathian (`1`) | Rathalos (`12`) |
+| d14 | Rathian (`1`) | Rathalos (`14`) |
+| d16 | Rathian (`1`) | Rathalos (`16`) |
 | d20 | Rathian (`1`) | Rathalos (`20`) |
+| d24 | Rathian (`1`) | Rathalos (`24`) |
+| d30 | Rathian (`1`) | Rathalos (`30`) |
 | d100 | normal tens | Rathalos (`00` / `100`) |
 
 Labels are 256×256 lossless WebP images with transparency. Full color is

@@ -5,6 +5,7 @@ const PRIVATE_FACES = Object.freeze({
   low: `${PRIVATE_ASSET_ROOT}/rathian.webp`,
   high: `${PRIVATE_ASSET_ROOT}/rathalos.webp`
 });
+const STANDARD_DICE_SIDES = Object.freeze([2, 4, 6, 8, 12, 14, 16, 20, 24, 30]);
 
 async function registerSystem(dice3d) {
   try {
@@ -23,7 +24,7 @@ function numberedLabels(sides) {
 }
 
 function registerPrivatePresets(dice3d) {
-  for (const sides of [2, 4, 6, 8, 12, 20]) {
+  for (const sides of STANDARD_DICE_SIDES) {
     dice3d.addDicePreset({
       type: `d${sides}`,
       labels: numberedLabels(sides),
@@ -115,5 +116,10 @@ export function registerDiceSoNice() {
 export const diceApi = Object.freeze({
   system: SYSTEM_ID,
   colorset: COLORSET_ID,
-  privateFaces: PRIVATE_FACES
+  privateFaces: PRIVATE_FACES,
+  supportedTypes: Object.freeze([
+    ...STANDARD_DICE_SIDES.map((sides) => `d${sides}`),
+    "d10",
+    "d100"
+  ])
 });

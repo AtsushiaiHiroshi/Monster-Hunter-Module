@@ -27,9 +27,10 @@ Dice So Nice is recommended, but not required.
 
 Private-use artwork can be installed into `assets/dice/private`. These files are
 ignored by Git and are not included in releases. When `rathian.webp` and
-`rathalos.webp` are present, the module registers a complete Dice So Nice set:
-Rathian replaces the low face, Rathalos replaces the highest face, and Rathalos
-replaces `00` on percentile dice.
+`rathalos.webp` are present, the module registers a complete Dice So Nice set
+covering d2, d4, d6, d8, d10, d12, d14, d16, d20, d24, d30 and d100. Rathian
+replaces the low face, Rathalos replaces the highest face, and Rathalos replaces
+`00` on percentile dice.
 
 See [the Dice So Nice implementation contract](docs/dice-so-nice.md) for face
 mapping, performance rules, effects and the custom GLB roadmap.

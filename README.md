@@ -20,8 +20,9 @@ hunt grants two material rolls, matching its supplied carve/capture entry.
 
 ### Targetable monster parts
 
-Great Jagras provides synchronized part HP for its head, neck, body, back,
-forelegs, hindlegs, tail and its state-dependent inflated stomach. Target the monster before rolling an
+Great Jagras provides synchronized part HP only for its three breakable zones:
+head, forelegs and its state-dependent inflated stomach. Its 85 body HP are
+distributed across those three part pools. Target the monster before rolling an
 attack, then choose the intended part on the attack message. When D&D5e applies
 the damage, the module:
 

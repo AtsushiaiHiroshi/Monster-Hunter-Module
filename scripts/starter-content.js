@@ -156,79 +156,34 @@ export function greatJagrasParts() {
     {
       id: "head",
       label: "Head",
-      hp: { value: 12, max: 12 },
+      hp: { value: 27, max: 27 },
       breakable: true,
       broken: false,
       rawThreshold: 150,
       hitzones: { slash: 80, blunt: 85, pierce: 75, fire: 30, water: 0, thunder: 20, ice: 15, dragon: 10 },
-      reward: { material: "mane", quantity: 1 }
-    },
-    {
-      id: "neck",
-      label: "Neck",
-      hp: { value: 12, max: 12 },
-      breakable: false,
-      broken: false,
-      hitzones: { slash: 65, blunt: 70, pierce: 60, fire: 20, water: 0, thunder: 10, ice: 5, dragon: 5 }
-    },
-    {
-      id: "body",
-      label: "Body",
-      hp: { value: 24, max: 24 },
-      breakable: false,
-      broken: false,
-      rawThreshold: 300,
-      hitzones: { slash: 50, blunt: 45, pierce: 40, fire: 20, water: 0, thunder: 10, ice: 5, dragon: 0 }
-    },
-    {
-      id: "back",
-      label: "Back",
-      hp: { value: 24, max: 24 },
-      breakable: false,
-      broken: false,
-      hitzones: { slash: 45, blunt: 40, pierce: 35, fire: 15, water: 0, thunder: 5, ice: 5, dragon: 0 }
+      reward: { material: "mane", name: "Great Jagras Mane", quantity: 1 }
     },
     {
       id: "forelegs",
       label: "Forelegs",
-      hp: { value: 17, max: 17 },
+      hp: { value: 37, max: 37 },
       breakable: true,
       broken: false,
       rawThreshold: 210,
       hitzones: { slash: 65, blunt: 60, pierce: 55, fire: 25, water: 0, thunder: 15, ice: 10, dragon: 5 },
-      reward: { material: "claw", quantity: 1 }
-    },
-    {
-      id: "hindlegs",
-      label: "Hindlegs",
-      hp: { value: 19, max: 19 },
-      breakable: false,
-      broken: false,
-      rawThreshold: 240,
-      hitzones: { slash: 45, blunt: 40, pierce: 35, fire: 15, water: 0, thunder: 5, ice: 0, dragon: 0 }
-    },
-    {
-      id: "tail",
-      label: "Tail",
-      hp: { value: 21, max: 21 },
-      breakable: false,
-      severable: false,
-      broken: false,
-      rawThreshold: 270,
-      hitzones: { slash: 45, blunt: 45, pierce: 40, fire: 15, water: 0, thunder: 5, ice: 0, dragon: 0 }
+      reward: { material: "claw", name: "Great Jagras Claw", quantity: 1 }
     },
     {
       id: "stomach",
       label: "Inflated Stomach",
-      hp: { value: 10, max: 10 },
+      hp: { value: 21, max: 21 },
       breakable: true,
       broken: false,
       rawThreshold: 120,
       active: false,
       state: "fullBelly",
       hitzones: { slash: 90, blunt: 95, pierce: 85, fire: 30, water: 0, thunder: 20, ice: 15, dragon: 10 },
-      brokenHitzones: { slash: 50, blunt: 45, pierce: 40, fire: 20, water: 0, thunder: 10, ice: 5, dragon: 0 },
-      reward: { material: "hide", quantity: 2 }
+      reward: { material: "hide", name: "Great Jagras Hide", quantity: 2 }
     }
   ];
 }
@@ -287,7 +242,8 @@ export function greatJagrasSource() {
       monsterFeature("Full Belly",
         "After swallowing a creature or object, Great Jagras enters Full Belly for up to 1 hour. Its speed becomes 30 feet and its Strength-based attacks deal one additional damage die."),
       monsterFeature("Multiattack",
-        "Great Jagras makes one Bite attack and one Claw attack."),
+        "Great Jagras makes one Bite attack and one Claw attack.",
+        { requiresParts: ["head", "forelegs"] }),
       monsterFeature("Swallow",
         "Great Jagras makes a Bite attack against a Medium or smaller creature it is grappling. On a hit, the creature is swallowed, blinded and restrained, has total cover from outside effects, and takes 3d6 acid damage at the start of each Great Jagras turn. Taking 15 damage from inside during one turn forces a DC 15 Constitution save or regurgitation.",
         { requiresPart: "head" }),

@@ -44,8 +44,9 @@ export function availableParts(actor) {
 export function resetPartData(parts) {
   return parts.map(part => ({
     ...part,
-    hp: { ...part.hp, value: part.hp.max },
+    ...(part.hp ? { hp: { ...part.hp, value: part.hp.max } } : {}),
     broken: false,
+    rewardDropped: false,
     rewardClaimed: false
   }));
 }
@@ -53,6 +54,7 @@ export function resetPartData(parts) {
 export function scalePartData(parts, bodyHp, baseBodyHp = 85) {
   const scale = Math.max(0.01, Number(bodyHp) / Number(baseBodyHp));
   return parts.map(part => {
+    if (!part.hp) return { ...part };
     const max = Math.max(1, Math.round(part.hp.max * scale));
     return { ...part, hp: { ...part.hp, value: max, max } };
   });
@@ -110,7 +112,7 @@ function partsSelector(message, actor) {
   const labelText = document.createElement("span");
   labelText.textContent = game.i18n.localize("MHM.Parts.Target");
   const select = document.createElement("select");
-  for (const part of availableParts(actor)) {
+  for (const part of availableParts(actor).filter(entry => entry.breakable && entry.hp)) {
     const option = document.createElement("option");
     option.value = part.id;
     option.selected = part.id === selected;
@@ -181,10 +183,13 @@ async function applyPartDamage(actor, partId, amount) {
   if (amount <= 0) return;
   const parts = getParts(actor);
   const part = parts.find(entry => entry.id === partId);
-  if (!part || part.broken) return;
+  if (!part?.hp || !part.breakable || part.broken) return;
   part.hp.value = Math.max(0, part.hp.value - amount);
   const justBroken = part.breakable !== false && part.hp.value === 0;
-  if (justBroken) part.broken = true;
+  if (justBroken) {
+    part.broken = true;
+    part.rewardDropped = Boolean(part.reward);
+  }
   await actor.setFlag(MODULE_ID, PARTS_FLAG, parts);
   if (justBroken && part.state === "fullBelly") {
     await actor.update({
@@ -197,7 +202,10 @@ async function applyPartDamage(actor, partId, amount) {
       content: `<section class="mhm-part-break"><h3>${game.i18n.format("MHM.Parts.BreakMessage", {
         monster: foundry.utils.escapeHTML(actor.name),
         part: foundry.utils.escapeHTML(part.label)
-      })}</h3></section>`
+      })}</h3>${part.reward ? `<p>${game.i18n.format("MHM.Parts.MaterialDropped", {
+        material: foundry.utils.escapeHTML(part.reward.name),
+        quantity: part.reward.quantity
+      })}</p>` : ""}</section>`
     });
   }
 }
@@ -227,12 +235,14 @@ export function registerPartsHooks() {
 
   Hooks.on("dnd5e.preUseActivity", activity => {
     const requiredPart = activity.item?.getFlag(MODULE_ID, "requiresPart");
+    const requiredParts = activity.item?.getFlag(MODULE_ID, "requiresParts")
+      ?? (requiredPart ? [requiredPart] : []);
     const requiredState = activity.item?.getFlag(MODULE_ID, "requiresState");
     const actor = activity.actor;
     if (!actor) return;
-    if (requiredPart) {
-      const part = getParts(actor).find(entry => entry.id === requiredPart);
-      if (part?.broken) {
+    if (requiredParts.length) {
+      const part = getParts(actor).find(entry => requiredParts.includes(entry.id) && entry.broken);
+      if (part) {
         ui.notifications.warn(game.i18n.format("MHM.Parts.ActionDisabled", {
           action: activity.item.name,
           part: part.label

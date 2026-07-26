@@ -28,7 +28,13 @@ function inventoryActor(quantities) {
 assert.equal(Object.keys(MATERIALS).length, 5);
 assert.equal(greatJagrasSource().system.attributes.hp.max, 85);
 assert.equal(greatJagrasSource().items.length, 8);
-assert.equal(greatJagrasSource().flags[MODULE_ID].parts.length, 8);
+assert.equal(greatJagrasSource().flags[MODULE_ID].parts.length, 3);
+assert.equal(
+  greatJagrasSource().flags[MODULE_ID].parts.reduce((total, part) => total + part.hp.max, 0),
+  85
+);
+assert.equal(greatJagrasSource().flags[MODULE_ID].parts.filter(part => part.breakable).length, 3);
+assert.equal(greatJagrasSource().flags[MODULE_ID].parts.find(part => part.id === "neck"), undefined);
 assert.equal(hunterSource().items[0].type, "weapon");
 assert.equal(materialItem("scale", 2).system.quantity, 2);
 assert.equal(RECIPES["jagras-blade"].output.system.activities, undefined);
@@ -59,7 +65,7 @@ damagedParts[0].hp.value = 0;
 damagedParts[0].broken = true;
 assert.equal(resetPartData(damagedParts)[0].hp.value, damagedParts[0].hp.max);
 assert.equal(resetPartData(damagedParts)[0].broken, false);
-assert.equal(scalePartData(parts, 170)[0].hp.max, 24);
+assert.equal(scalePartData(parts, 170).find(part => part.id === "head").hp.max, 54);
 assert.equal(parts.find(part => part.id === "stomach").active, false);
 assert.equal(greatJagrasSource().flags[MODULE_ID].states.fullBelly, false);
 

@@ -40,6 +40,7 @@
   "MHM.Parts.Broken": "broken",
   "MHM.Parts.Bonus": "Part",
   "MHM.Parts.BreakMessage": "{monster}: {part} has broken!",
+  "MHM.Parts.MaterialDropped": "Detached material: {material} x{quantity}. It will be collected with the hunt rewards.",
   "MHM.Parts.ActionDisabled": "{action} cannot be used because {part} is broken.",
   "MHM.Parts.StateRequired": "This action requires the monster's special state.",
   "MHM.Parts.StartFullBelly": "Activate Full Belly",

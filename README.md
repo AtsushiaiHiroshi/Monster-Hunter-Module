@@ -3,6 +3,21 @@
 An open-source Foundry VTT v13+ module that reshapes D&D 5e into a non-magical
 Monster Hunter campaign framework.
 
+## First playable contract
+
+Version 0.2.0 includes a complete Great Jagras test loop:
+
+1. Enable the module in a D&D5e world and reload it.
+2. Type `/mhm` in chat.
+3. As GM, create the Hunter Initiate and deploy Great Jagras.
+4. Drag the hunter to the scene, control its token, and target Great Jagras.
+5. Fight using the weapon activities on both actor sheets.
+6. Use Carve or Capture Rewards from the guild board.
+7. Gather enough materials to craft the Jagras Blade or Jagras Mail.
+
+Deploying Great Jagras resets its hit points and harvest state. Each deployed
+hunt grants two material rolls, matching its supplied carve/capture entry.
+
 ## Current foundation
 
 - Strict world-level policy that blocks spell documents and heuristically

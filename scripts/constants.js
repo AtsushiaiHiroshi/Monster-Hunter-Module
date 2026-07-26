@@ -3,7 +3,8 @@ export const MODULE_ID = "monster-hunter-module";
 export const SETTINGS = Object.freeze({
   MAGIC_POLICY: "magicPolicy",
   HIDE_MAGIC_UI: "hideMagicUi",
-  ENABLE_MOUNTS: "enableMounts"
+  ENABLE_MOUNTS: "enableMounts",
+  STARTER_NOTICE: "starterNotice"
 });
 
 export const MAGIC_ITEM_TYPES = new Set(["spell"]);

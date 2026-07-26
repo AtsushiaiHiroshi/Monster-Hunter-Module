@@ -33,4 +33,11 @@ export function registerSettings() {
     type: Boolean,
     default: true
   });
+
+  game.settings.register(MODULE_ID, SETTINGS.STARTER_NOTICE, {
+    scope: "client",
+    config: false,
+    type: Boolean,
+    default: false
+  });
 }

@@ -5,7 +5,7 @@ Monster Hunter campaign framework.
 
 ## First playable contract
 
-Version 0.3.0 includes a complete Great Jagras test loop:
+Version 0.4.0 includes a complete Great Jagras test loop:
 
 1. Enable the module in a D&D5e world and reload it.
 2. Type `/mhm` in chat.
@@ -20,8 +20,8 @@ hunt grants two material rolls, matching its supplied carve/capture entry.
 
 ### Targetable monster parts
 
-Great Jagras also provides synchronized part HP for its head, body, forelegs,
-hindlegs, tail and inflated stomach. Target the monster before rolling an
+Great Jagras provides synchronized part HP for its head, neck, body, back,
+forelegs, hindlegs, tail and its state-dependent inflated stomach. Target the monster before rolling an
 attack, then choose the intended part on the attack message. When D&D5e applies
 the damage, the module:
 
@@ -35,6 +35,10 @@ the damage, the module:
 The supplied Great Jagras hitzones and break thresholds are adapted from
 Monster Hunter: World data. Raw source thresholds remain stored in the Actor
 flags while the playable part HP are scaled to the D&D5e stat block.
+
+Full Belly can be activated from the monster-parts panel. It reduces movement,
+enables the inflated stomach and unlocks the empowered Bite, Claw and Rollover
+actions. Breaking the stomach forces the state to end.
 
 ### Character policy
 

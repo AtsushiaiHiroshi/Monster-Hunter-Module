@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { MODULE_ID } from "../scripts/constants.js";
 import { canCraft } from "../scripts/hunting.js";
 import { classifyForbiddenContent } from "../scripts/magic-policy.js";
-import { modifyDamageForPart, partDamageCategory, resetPartData } from "../scripts/parts.js";
+import { modifyDamageForPart, partDamageCategory, resetPartData, scalePartData } from "../scripts/parts.js";
 import {
   MATERIALS,
   RECIPES,
@@ -27,14 +27,12 @@ function inventoryActor(quantities) {
 
 assert.equal(Object.keys(MATERIALS).length, 5);
 assert.equal(greatJagrasSource().system.attributes.hp.max, 85);
-assert.equal(greatJagrasSource().items.length, 2);
-assert.equal(greatJagrasSource().flags[MODULE_ID].parts.length, 6);
+assert.equal(greatJagrasSource().items.length, 8);
+assert.equal(greatJagrasSource().flags[MODULE_ID].parts.length, 8);
 assert.equal(hunterSource().items[0].type, "weapon");
 assert.equal(materialItem("scale", 2).system.quantity, 2);
-assert.deepEqual(
-  RECIPES["jagras-blade"].output.system.activities["jagras-blade-atk"].damage.parts[0].types,
-  ["water"]
-);
+assert.equal(RECIPES["jagras-blade"].output.system.activities, undefined);
+assert.match(RECIPES["jagras-blade"].output.system.description.value, /Palico Rally/);
 
 const bladeMaterials = inventoryActor({
   "great-jagras-claw": 2,
@@ -61,6 +59,9 @@ damagedParts[0].hp.value = 0;
 damagedParts[0].broken = true;
 assert.equal(resetPartData(damagedParts)[0].hp.value, damagedParts[0].hp.max);
 assert.equal(resetPartData(damagedParts)[0].broken, false);
+assert.equal(scalePartData(parts, 170)[0].hp.max, 24);
+assert.equal(parts.find(part => part.id === "stomach").active, false);
+assert.equal(greatJagrasSource().flags[MODULE_ID].states.fullBelly, false);
 
 assert.equal(classifyForbiddenContent({ type: "class", name: "Fighter", system: {} }), null);
 assert.equal(classifyForbiddenContent({ type: "class", name: "Monk", system: {} }), "class:monk");

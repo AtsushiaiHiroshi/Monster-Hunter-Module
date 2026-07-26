@@ -41,6 +41,9 @@
   "MHM.Parts.Bonus": "Parte",
   "MHM.Parts.BreakMessage": "¡{monster}: {part} se ha roto!",
   "MHM.Parts.ActionDisabled": "{action} no puede utilizarse porque {part} está rota.",
+  "MHM.Parts.StateRequired": "Esta acción requiere el estado especial del monstruo.",
+  "MHM.Parts.StartFullBelly": "Activar vientre lleno",
+  "MHM.Parts.EndFullBelly": "Regurgitar / terminar vientre lleno",
   "MHM.Damage.Water": "Agua",
   "MHM.Damage.Dragon": "Dragón"
 }

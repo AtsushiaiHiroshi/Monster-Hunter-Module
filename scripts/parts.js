@@ -36,6 +36,11 @@ export function getParts(actor) {
   return foundry.utils.deepClone(actor?.getFlag(MODULE_ID, PARTS_FLAG) ?? []);
 }
 
+export function availableParts(actor) {
+  const states = actor?.getFlag(MODULE_ID, "states") ?? {};
+  return getParts(actor).filter(part => part.active !== false || states[part.state]);
+}
+
 export function resetPartData(parts) {
   return parts.map(part => ({
     ...part,
@@ -43,6 +48,30 @@ export function resetPartData(parts) {
     broken: false,
     rewardClaimed: false
   }));
+}
+
+export function scalePartData(parts, bodyHp, baseBodyHp = 85) {
+  const scale = Math.max(0.01, Number(bodyHp) / Number(baseBodyHp));
+  return parts.map(part => {
+    const max = Math.max(1, Math.round(part.hp.max * scale));
+    return { ...part, hp: { ...part.hp, value: max, max } };
+  });
+}
+
+export async function setMonsterState(actor, state, active) {
+  const parts = getParts(actor);
+  if (state === "fullBelly" && active) {
+    const stomach = parts.find(part => part.state === state);
+    if (stomach) {
+      stomach.broken = false;
+      stomach.hp.value = stomach.hp.max;
+    }
+  }
+  await actor.update({
+    [`flags.${MODULE_ID}.states.${state}`]: active,
+    [`flags.${MODULE_ID}.${PARTS_FLAG}`]: parts,
+    ...(state === "fullBelly" ? { "system.attributes.movement.walk": active ? 30 : 40 } : {})
+  });
 }
 
 export function modifyDamageForPart(parts, partId, damages) {
@@ -74,14 +103,14 @@ function targetedMonster() {
 }
 
 function partsSelector(message, actor) {
-  const selected = targetData(message)?.partId ?? getParts(actor)[0]?.id;
+  const selected = targetData(message)?.partId ?? availableParts(actor)[0]?.id;
   const section = document.createElement("section");
   section.className = "mhm-part-target";
   const label = document.createElement("label");
   const labelText = document.createElement("span");
   labelText.textContent = game.i18n.localize("MHM.Parts.Target");
   const select = document.createElement("select");
-  for (const part of getParts(actor)) {
+  for (const part of availableParts(actor)) {
     const option = document.createElement("option");
     option.value = part.id;
     option.selected = part.id === selected;
@@ -104,8 +133,21 @@ function partsPanel(actor) {
   const heading = document.createElement("h3");
   heading.textContent = game.i18n.localize("MHM.Parts.Title");
   section.append(heading);
+  if (actor.getFlag(MODULE_ID, "id") === "great-jagras") {
+    const fullBelly = Boolean(actor.getFlag(MODULE_ID, "states")?.fullBelly);
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "mhm-state-toggle";
+    toggle.textContent = game.i18n.localize(fullBelly ? "MHM.Parts.EndFullBelly" : "MHM.Parts.StartFullBelly");
+    toggle.addEventListener("click", async () => {
+      toggle.disabled = true;
+      await setMonsterState(actor, "fullBelly", !fullBelly);
+      actor.sheet.render();
+    });
+    section.append(toggle);
+  }
   const list = document.createElement("ul");
-  for (const part of getParts(actor)) {
+  for (const part of availableParts(actor)) {
     const item = document.createElement("li");
     if (part.broken) item.classList.add("is-broken");
     const label = document.createElement("span");
@@ -144,6 +186,12 @@ async function applyPartDamage(actor, partId, amount) {
   const justBroken = part.breakable !== false && part.hp.value === 0;
   if (justBroken) part.broken = true;
   await actor.setFlag(MODULE_ID, PARTS_FLAG, parts);
+  if (justBroken && part.state === "fullBelly") {
+    await actor.update({
+      [`flags.${MODULE_ID}.states.fullBelly`]: false,
+      "system.attributes.movement.walk": 40
+    });
+  }
   if (justBroken) {
     await ChatMessage.create({
       content: `<section class="mhm-part-break"><h3>${game.i18n.format("MHM.Parts.BreakMessage", {
@@ -179,15 +227,23 @@ export function registerPartsHooks() {
 
   Hooks.on("dnd5e.preUseActivity", activity => {
     const requiredPart = activity.item?.getFlag(MODULE_ID, "requiresPart");
+    const requiredState = activity.item?.getFlag(MODULE_ID, "requiresState");
     const actor = activity.actor;
-    if (!requiredPart || !actor) return;
-    const part = getParts(actor).find(entry => entry.id === requiredPart);
-    if (!part?.broken) return;
-    ui.notifications.warn(game.i18n.format("MHM.Parts.ActionDisabled", {
-      action: activity.item.name,
-      part: part.label
-    }));
-    return false;
+    if (!actor) return;
+    if (requiredPart) {
+      const part = getParts(actor).find(entry => entry.id === requiredPart);
+      if (part?.broken) {
+        ui.notifications.warn(game.i18n.format("MHM.Parts.ActionDisabled", {
+          action: activity.item.name,
+          part: part.label
+        }));
+        return false;
+      }
+    }
+    if (requiredState && !actor.getFlag(MODULE_ID, "states")?.[requiredState]) {
+      ui.notifications.warn(game.i18n.localize("MHM.Parts.StateRequired"));
+      return false;
+    }
   });
 
   Hooks.on("renderChatMessageHTML", (message, element) => {
@@ -208,8 +264,11 @@ export function registerPartsHooks() {
 
 export const partsApi = Object.freeze({
   getParts,
+  availableParts,
   modifyDamageForPart,
   partDamageCategory,
   registerMonsterHunterDamageTypes,
-  resetPartData
+  resetPartData,
+  scalePartData,
+  setMonsterState
 });

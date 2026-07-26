@@ -21,33 +21,11 @@ export const RECIPES = Object.freeze({
       type: "weapon",
       img: "icons/svg/sword.svg",
       system: {
-        description: { value: "<p>A broad, non-magical hunting blade reinforced with Great Jagras claws. Its attack deals an additional 1d4 water damage.</p>" },
+        description: { value: "<p>A broad, non-magical hunting blade reinforced with Great Jagras claws.</p><p><strong>Palico Rally.</strong> NPC allies within 10 feet gain +1 AC and +1 to attack rolls while you wield this weapon.</p>" },
         type: { value: "martialM" },
         damage: {
           base: { number: 1, denomination: 10, bonus: "", types: ["slashing"] },
           versatile: { number: null, denomination: 0, bonus: "", types: [] }
-        },
-        activities: {
-          "jagras-blade-atk": {
-            _id: "jagras-blade-atk",
-            type: "attack",
-            activation: { type: "action", value: 1, override: false },
-            attack: { ability: "str", bonus: "", flat: false, type: { value: "melee", classification: "weapon" } },
-            damage: {
-              includeBase: true,
-              parts: [{
-                custom: { enabled: false, formula: "" },
-                number: 1,
-                denomination: 4,
-                bonus: "",
-                types: ["water"]
-              }]
-            },
-            name: "Jagras Blade",
-            range: { override: false },
-            target: { affects: { type: "creature", count: "1" }, override: false },
-            uses: { spent: 0, recovery: [] }
-          }
         },
         properties: ["two", "hvy"],
         range: { reach: 5, units: "ft" },
@@ -72,7 +50,8 @@ export const RECIPES = Object.freeze({
         description: {
           value: [
             "<p><strong>Speed Eating.</strong> Once per turn, use a potion or food on yourself as a bonus action.</p>",
-            "<p><strong>Free Meal.</strong> At the end of a long rest, one ration in your inventory is not consumed.</p>"
+            "<p><strong>Free Meal.</strong> You do not need to eat or drink while wearing this armor.</p>",
+            "<p><strong>Intimidating Scale.</strong> You gain a +2 bonus to Intimidation checks.</p>"
           ].join("")
         },
         type: { value: "medium" },
@@ -122,7 +101,7 @@ export function materialItem(key, quantity = 1) {
   };
 }
 
-function naturalWeapon(name, number, denomination, type, description, requiresPart) {
+function naturalWeapon(name, number, denomination, type, description, requiresPart, extraFlags = {}) {
   return {
     name,
     type: "weapon",
@@ -145,7 +124,28 @@ function naturalWeapon(name, number, denomination, type, description, requiresPa
     flags: {
       [MODULE_ID]: {
         ...provenance("monster-action", name.toLocaleLowerCase())[MODULE_ID],
-        requiresPart
+        requiresPart,
+        ...extraFlags
+      }
+    }
+  };
+}
+
+function monsterFeature(name, description, extraFlags = {}) {
+  return {
+    name,
+    type: "feat",
+    img: "icons/svg/aura.svg",
+    system: {
+      description: { value: `<p>${description}</p>` },
+      type: { value: "monster" },
+      activation: { type: "", cost: null, condition: "" },
+      uses: { spent: 0, max: "", recovery: [] }
+    },
+    flags: {
+      [MODULE_ID]: {
+        ...provenance("monster-action", name.toLocaleLowerCase().replaceAll(" ", "-"))[MODULE_ID],
+        ...extraFlags
       }
     }
   };
@@ -164,6 +164,14 @@ export function greatJagrasParts() {
       reward: { material: "mane", quantity: 1 }
     },
     {
+      id: "neck",
+      label: "Neck",
+      hp: { value: 12, max: 12 },
+      breakable: false,
+      broken: false,
+      hitzones: { slash: 65, blunt: 70, pierce: 60, fire: 20, water: 0, thunder: 10, ice: 5, dragon: 5 }
+    },
+    {
       id: "body",
       label: "Body",
       hp: { value: 24, max: 24 },
@@ -171,6 +179,14 @@ export function greatJagrasParts() {
       broken: false,
       rawThreshold: 300,
       hitzones: { slash: 50, blunt: 45, pierce: 40, fire: 20, water: 0, thunder: 10, ice: 5, dragon: 0 }
+    },
+    {
+      id: "back",
+      label: "Back",
+      hp: { value: 24, max: 24 },
+      breakable: false,
+      broken: false,
+      hitzones: { slash: 45, blunt: 40, pierce: 35, fire: 15, water: 0, thunder: 5, ice: 5, dragon: 0 }
     },
     {
       id: "forelegs",
@@ -208,6 +224,8 @@ export function greatJagrasParts() {
       breakable: true,
       broken: false,
       rawThreshold: 120,
+      active: false,
+      state: "fullBelly",
       hitzones: { slash: 90, blunt: 95, pierce: 85, fire: 30, water: 0, thunder: 20, ice: 15, dragon: 10 },
       brokenHitzones: { slash: 50, blunt: 45, pierce: 40, fire: 20, water: 0, thunder: 10, ice: 5, dragon: 0 },
       reward: { material: "hide", quantity: 2 }
@@ -257,15 +275,32 @@ export function greatJagrasSource() {
       naturalWeapon("Bite", 2, 6, "piercing",
         "On a hit, the target is grappled (escape DC 13). Great Jagras cannot bite another target until it ends.",
         "head"),
+      naturalWeapon("Bite (Full Belly)", 3, 6, "piercing",
+        "On a hit, the target is grappled (escape DC 13). Use only while Full Belly is active.",
+        "head", { requiresState: "fullBelly" }),
       naturalWeapon("Claw", 3, 4, "slashing",
-        "With a full belly, this attack instead deals 4d4 + 3 piercing damage.",
-        "forelegs")
+        "A sweeping claw attack.",
+        "forelegs"),
+      naturalWeapon("Claw (Full Belly)", 4, 4, "piercing",
+        "Use only while Full Belly is active.",
+        "forelegs", { requiresState: "fullBelly" }),
+      monsterFeature("Full Belly",
+        "After swallowing a creature or object, Great Jagras enters Full Belly for up to 1 hour. Its speed becomes 30 feet and its Strength-based attacks deal one additional damage die."),
+      monsterFeature("Multiattack",
+        "Great Jagras makes one Bite attack and one Claw attack."),
+      monsterFeature("Swallow",
+        "Great Jagras makes a Bite attack against a Medium or smaller creature it is grappling. On a hit, the creature is swallowed, blinded and restrained, has total cover from outside effects, and takes 3d6 acid damage at the start of each Great Jagras turn. Taking 15 damage from inside during one turn forces a DC 15 Constitution save or regurgitation.",
+        { requiresPart: "head" }),
+      monsterFeature("Rollover",
+        "Full Belly only; recharge 5-6. Great Jagras moves up to half its speed through creatures without provoking opportunity attacks. Affected creatures make a DC 13 Dexterity save, taking 4d6 + 3 bludgeoning damage and falling prone on a failure, or half damage and being pushed 5 feet on a success.",
+        { requiresState: "fullBelly", requiresPart: "stomach" })
     ],
     flags: {
       [MODULE_ID]: {
         ...provenance("monster", "great-jagras")[MODULE_ID],
         carves: 2,
         harvested: false,
+        states: { fullBelly: false },
         parts: greatJagrasParts()
       }
     }

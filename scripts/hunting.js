@@ -77,7 +77,9 @@ export async function deployGreatJagras() {
   if (!actor) actor = await Actor.create({ ...greatJagrasSource(), folder: folder?.id });
   await actor.update({
     "system.attributes.hp.value": 85,
+    "system.attributes.movement.walk": 40,
     [`flags.${MODULE_ID}.harvested`]: false,
+    [`flags.${MODULE_ID}.states.fullBelly`]: false,
     [`flags.${MODULE_ID}.parts`]: greatJagrasParts()
   });
   const token = await actor.getTokenDocument({

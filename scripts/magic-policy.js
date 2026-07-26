@@ -1,9 +1,18 @@
 import {
+  ALLOWED_BASE_CLASSES,
+  ALLOWED_SUBCLASSES,
   MAGIC_ITEM_TYPES,
   MAGIC_TERMS,
   MODULE_ID,
   SETTINGS
 } from "./constants.js";
+
+function normalizedIdentifier(source) {
+  return String(source.system?.identifier ?? source.name ?? "")
+    .toLocaleLowerCase()
+    .replaceAll("-", " ")
+    .trim();
+}
 
 function flattenText(value) {
   if (value == null) return "";
@@ -21,9 +30,15 @@ function hasMagicalProperty(source) {
 }
 
 export function classifyForbiddenContent(source = {}) {
-  if (source.flags?.[MODULE_ID]?.allowNonMagical === true) return null;
   if (MAGIC_ITEM_TYPES.has(source.type)) return "spell";
+  if (source.flags?.[MODULE_ID]?.allowNonMagical === true) return null;
   if (hasMagicalProperty(source)) return "magical-property";
+  if (source.type === "class" && !ALLOWED_BASE_CLASSES.has(normalizedIdentifier(source))) {
+    return `class:${normalizedIdentifier(source) || "unknown"}`;
+  }
+  if (source.type === "subclass" && !ALLOWED_SUBCLASSES.has(normalizedIdentifier(source))) {
+    return `subclass:${normalizedIdentifier(source) || "unknown"}`;
+  }
 
   if (["class", "subclass", "feat", "equipment", "weapon", "consumable"].includes(source.type)) {
     const searchable = `${source.name ?? ""} ${flattenText(source.system?.description)}`.toLocaleLowerCase();

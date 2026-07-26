@@ -4,18 +4,22 @@ import { classifyForbiddenContent, registerMagicPolicyHooks } from "./magic-poli
 import { mountsApi } from "./mounts.js";
 import { registerSettings } from "./settings.js";
 import { huntingApi, registerHuntingHooks } from "./hunting.js";
+import { partsApi, registerMonsterHunterDamageTypes, registerPartsHooks } from "./parts.js";
 
 Hooks.once("init", () => {
   registerSettings();
   registerMagicPolicyHooks();
   registerHuntingHooks();
+  registerPartsHooks();
+  registerMonsterHunterDamageTypes();
 
   const module = game.modules.get(MODULE_ID);
   module.api = Object.freeze({
     classifyForbiddenContent,
     dice: diceApi,
     hunting: huntingApi,
-    mounts: mountsApi
+    mounts: mountsApi,
+    parts: partsApi
   });
 });
 

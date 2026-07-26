@@ -5,7 +5,7 @@ Monster Hunter campaign framework.
 
 ## First playable contract
 
-Version 0.2.0 includes a complete Great Jagras test loop:
+Version 0.3.0 includes a complete Great Jagras test loop:
 
 1. Enable the module in a D&D5e world and reload it.
 2. Type `/mhm` in chat.
@@ -17,6 +17,33 @@ Version 0.2.0 includes a complete Great Jagras test loop:
 
 Deploying Great Jagras resets its hit points and harvest state. Each deployed
 hunt grants two material rolls, matching its supplied carve/capture entry.
+
+### Targetable monster parts
+
+Great Jagras also provides synchronized part HP for its head, body, forelegs,
+hindlegs, tail and inflated stomach. Target the monster before rolling an
+attack, then choose the intended part on the attack message. When D&D5e applies
+the damage, the module:
+
+- applies the hitzone percentage for slashing, bludgeoning, piercing, fire,
+  water, lightning, cold or dragon damage;
+- subtracts the result from both the monster's body HP and the selected part;
+- marks breakable parts as broken at 0 part HP;
+- prevents actions that require a broken part;
+- adds part-break rewards to the final carve or capture.
+
+The supplied Great Jagras hitzones and break thresholds are adapted from
+Monster Hunter: World data. Raw source thresholds remain stored in the Actor
+flags while the playable part HP are scaled to the D&D5e stat block.
+
+### Character policy
+
+All races remain available. The strict no-magic policy permits the base
+Barbarian, Fighter and Rogue plus explicitly approved non-casting subclasses.
+Monk and all spellcasting classes are blocked. Ranger and Artificer will be
+provided as module-owned non-casting revisions; Beast Master and Drakewarden
+will become the Buddy and Rider paths rather than importing their original
+spellcasting implementations.
 
 ## Current foundation
 

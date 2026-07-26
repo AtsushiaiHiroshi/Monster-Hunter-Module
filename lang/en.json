@@ -34,5 +34,13 @@
   "MHM.Hunting.MonsterRequired": "Target a Great Jagras.",
   "MHM.Hunting.AlreadyHarvested": "This Great Jagras has already provided its rewards.",
   "MHM.Hunting.MaterialsMissing": "Missing materials to craft {name}.",
-  "MHM.Hunting.Crafted": "Crafted {name}."
+  "MHM.Hunting.Crafted": "Crafted {name}.",
+  "MHM.Parts.Title": "Monster Parts",
+  "MHM.Parts.Target": "Target part",
+  "MHM.Parts.Broken": "broken",
+  "MHM.Parts.Bonus": "Part",
+  "MHM.Parts.BreakMessage": "{monster}: {part} has broken!",
+  "MHM.Parts.ActionDisabled": "{action} cannot be used because {part} is broken.",
+  "MHM.Damage.Water": "Water",
+  "MHM.Damage.Dragon": "Dragon"
 }

@@ -2,7 +2,7 @@
   "id": "monster-hunter-module",
   "title": "Monster Hunter for D&D 5e",
   "description": "A non-magical Monster Hunter rules layer for D&D 5e, including monstie mounts and Dice So Nice themes.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "authors": [
     {
       "name": "AtsushiaiHiroshi",
@@ -33,6 +33,43 @@
   ],
   "styles": [
     "styles/monster-hunter.css"
+  ],
+  "packs": [
+    {
+      "name": "monsters",
+      "label": "Monster Hunter: Monsters",
+      "path": "packs/monsters",
+      "type": "Actor",
+      "system": "dnd5e"
+    },
+    {
+      "name": "weapons",
+      "label": "Monster Hunter: Weapons",
+      "path": "packs/weapons",
+      "type": "Item",
+      "system": "dnd5e"
+    },
+    {
+      "name": "armor",
+      "label": "Monster Hunter: Armor",
+      "path": "packs/armor",
+      "type": "Item",
+      "system": "dnd5e"
+    },
+    {
+      "name": "accessories",
+      "label": "Monster Hunter: Accessories",
+      "path": "packs/accessories",
+      "type": "Item",
+      "system": "dnd5e"
+    },
+    {
+      "name": "materials",
+      "label": "Monster Hunter: Materials",
+      "path": "packs/materials",
+      "type": "Item",
+      "system": "dnd5e"
+    }
   ],
   "languages": [
     {

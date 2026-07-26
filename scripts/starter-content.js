@@ -21,11 +21,33 @@ export const RECIPES = Object.freeze({
       type: "weapon",
       img: "icons/svg/sword.svg",
       system: {
-        description: { value: "<p>A broad, non-magical hunting blade reinforced with Great Jagras claws.</p>" },
+        description: { value: "<p>A broad, non-magical hunting blade reinforced with Great Jagras claws. Its attack deals an additional 1d4 water damage.</p>" },
         type: { value: "martialM" },
         damage: {
           base: { number: 1, denomination: 10, bonus: "", types: ["slashing"] },
           versatile: { number: null, denomination: 0, bonus: "", types: [] }
+        },
+        activities: {
+          "jagras-blade-atk": {
+            _id: "jagras-blade-atk",
+            type: "attack",
+            activation: { type: "action", value: 1, override: false },
+            attack: { ability: "str", bonus: "", flat: false, type: { value: "melee", classification: "weapon" } },
+            damage: {
+              includeBase: true,
+              parts: [{
+                custom: { enabled: false, formula: "" },
+                number: 1,
+                denomination: 4,
+                bonus: "",
+                types: ["water"]
+              }]
+            },
+            name: "Jagras Blade",
+            range: { override: false },
+            target: { affects: { type: "creature", count: "1" }, override: false },
+            uses: { spent: 0, recovery: [] }
+          }
         },
         properties: ["two", "hvy"],
         range: { reach: 5, units: "ft" },
@@ -100,7 +122,7 @@ export function materialItem(key, quantity = 1) {
   };
 }
 
-function naturalWeapon(name, number, denomination, type, description) {
+function naturalWeapon(name, number, denomination, type, description, requiresPart) {
   return {
     name,
     type: "weapon",
@@ -120,8 +142,77 @@ function naturalWeapon(name, number, denomination, type, description) {
       attuned: false,
       quantity: 1
     },
-    flags: provenance("monster-action", name.toLocaleLowerCase())
+    flags: {
+      [MODULE_ID]: {
+        ...provenance("monster-action", name.toLocaleLowerCase())[MODULE_ID],
+        requiresPart
+      }
+    }
   };
+}
+
+export function greatJagrasParts() {
+  return [
+    {
+      id: "head",
+      label: "Head",
+      hp: { value: 12, max: 12 },
+      breakable: true,
+      broken: false,
+      rawThreshold: 150,
+      hitzones: { slash: 80, blunt: 85, pierce: 75, fire: 30, water: 0, thunder: 20, ice: 15, dragon: 10 },
+      reward: { material: "mane", quantity: 1 }
+    },
+    {
+      id: "body",
+      label: "Body",
+      hp: { value: 24, max: 24 },
+      breakable: false,
+      broken: false,
+      rawThreshold: 300,
+      hitzones: { slash: 50, blunt: 45, pierce: 40, fire: 20, water: 0, thunder: 10, ice: 5, dragon: 0 }
+    },
+    {
+      id: "forelegs",
+      label: "Forelegs",
+      hp: { value: 17, max: 17 },
+      breakable: true,
+      broken: false,
+      rawThreshold: 210,
+      hitzones: { slash: 65, blunt: 60, pierce: 55, fire: 25, water: 0, thunder: 15, ice: 10, dragon: 5 },
+      reward: { material: "claw", quantity: 1 }
+    },
+    {
+      id: "hindlegs",
+      label: "Hindlegs",
+      hp: { value: 19, max: 19 },
+      breakable: false,
+      broken: false,
+      rawThreshold: 240,
+      hitzones: { slash: 45, blunt: 40, pierce: 35, fire: 15, water: 0, thunder: 5, ice: 0, dragon: 0 }
+    },
+    {
+      id: "tail",
+      label: "Tail",
+      hp: { value: 21, max: 21 },
+      breakable: false,
+      severable: false,
+      broken: false,
+      rawThreshold: 270,
+      hitzones: { slash: 45, blunt: 45, pierce: 40, fire: 15, water: 0, thunder: 5, ice: 0, dragon: 0 }
+    },
+    {
+      id: "stomach",
+      label: "Inflated Stomach",
+      hp: { value: 10, max: 10 },
+      breakable: true,
+      broken: false,
+      rawThreshold: 120,
+      hitzones: { slash: 90, blunt: 95, pierce: 85, fire: 30, water: 0, thunder: 20, ice: 15, dragon: 10 },
+      brokenHitzones: { slash: 50, blunt: 45, pierce: 40, fire: 20, water: 0, thunder: 10, ice: 5, dragon: 0 },
+      reward: { material: "hide", quantity: 2 }
+    }
+  ];
 }
 
 export function greatJagrasSource() {
@@ -164,15 +255,18 @@ export function greatJagrasSource() {
     },
     items: [
       naturalWeapon("Bite", 2, 6, "piercing",
-        "On a hit, the target is grappled (escape DC 13). Great Jagras cannot bite another target until it ends."),
+        "On a hit, the target is grappled (escape DC 13). Great Jagras cannot bite another target until it ends.",
+        "head"),
       naturalWeapon("Claw", 3, 4, "slashing",
-        "With a full belly, this attack instead deals 4d4 + 3 piercing damage.")
+        "With a full belly, this attack instead deals 4d4 + 3 piercing damage.",
+        "forelegs")
     ],
     flags: {
       [MODULE_ID]: {
         ...provenance("monster", "great-jagras")[MODULE_ID],
         carves: 2,
-        harvested: false
+        harvested: false,
+        parts: greatJagrasParts()
       }
     }
   };

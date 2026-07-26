@@ -54,8 +54,63 @@
   margin-block-end: 0;
 }
 
+.mhm-part-target {
+  margin-block-start: 0.5rem;
+  padding-block-start: 0.5rem;
+  border-block-start: 1px solid var(--color-border-light-tertiary);
+}
+
+.mhm-part-target label {
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.mhm-parts-panel {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--mhm-guild-gold);
+  border-radius: 4px;
+}
+
+.mhm-parts-panel h3 {
+  margin-block: 0 0.4rem;
+}
+
+.mhm-parts-panel ul {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mhm-parts-panel li {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) 2fr auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.mhm-parts-panel li.is-broken {
+  color: var(--color-level-error, #a00000);
+}
+
+.mhm-parts-panel progress {
+  inline-size: 100%;
+}
+
 @media (max-width: 420px) {
   .mhm-board-actions {
     grid-template-columns: 1fr;
+  }
+
+  .mhm-parts-panel li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .mhm-parts-panel progress {
+    grid-column: 1 / -1;
   }
 }

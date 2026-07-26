@@ -34,5 +34,13 @@
   "MHM.Hunting.MonsterRequired": "Marca un Great Jagras como objetivo.",
   "MHM.Hunting.AlreadyHarvested": "Este Great Jagras ya entregó sus recompensas.",
   "MHM.Hunting.MaterialsMissing": "Faltan materiales para fabricar {name}.",
-  "MHM.Hunting.Crafted": "Se fabricó {name}."
+  "MHM.Hunting.Crafted": "Se fabricó {name}.",
+  "MHM.Parts.Title": "Partes del monstruo",
+  "MHM.Parts.Target": "Parte objetivo",
+  "MHM.Parts.Broken": "rota",
+  "MHM.Parts.Bonus": "Parte",
+  "MHM.Parts.BreakMessage": "¡{monster}: {part} se ha roto!",
+  "MHM.Parts.ActionDisabled": "{action} no puede utilizarse porque {part} está rota.",
+  "MHM.Damage.Water": "Agua",
+  "MHM.Damage.Dragon": "Dragón"
 }

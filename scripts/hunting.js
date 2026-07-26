@@ -2,6 +2,7 @@ import { MODULE_ID, SETTINGS } from "./constants.js";
 import {
   MATERIALS,
   RECIPES,
+  greatJagrasParts,
   greatJagrasSource,
   hunterSource,
   materialItem,
@@ -76,7 +77,8 @@ export async function deployGreatJagras() {
   if (!actor) actor = await Actor.create({ ...greatJagrasSource(), folder: folder?.id });
   await actor.update({
     "system.attributes.hp.value": 85,
-    [`flags.${MODULE_ID}.harvested`]: false
+    [`flags.${MODULE_ID}.harvested`]: false,
+    [`flags.${MODULE_ID}.parts`]: greatJagrasParts()
   });
   const token = await actor.getTokenDocument({
     x: Math.max(0, Math.round((canvas.stage.pivot.x ?? 0) / canvas.grid.size) * canvas.grid.size),
@@ -87,14 +89,14 @@ export async function deployGreatJagras() {
   return created;
 }
 
-async function addMaterial(actor, key) {
+async function addMaterial(actor, key, quantity = 1) {
   const id = MATERIALS[key].id;
   const existing = actor.items.find(item => item.getFlag(MODULE_ID, "id") === id);
   if (existing) {
-    await existing.update({ "system.quantity": Number(existing.system.quantity ?? 0) + 1 });
+    await existing.update({ "system.quantity": Number(existing.system.quantity ?? 0) + quantity });
     return existing;
   }
-  const [created] = await actor.createEmbeddedDocuments("Item", [materialItem(key)]);
+  const [created] = await actor.createEmbeddedDocuments("Item", [materialItem(key, quantity)]);
   return created;
 }
 
@@ -114,6 +116,17 @@ export async function harvest({ hunter = controlledActor(), monster = targetedMo
     await addMaterial(hunter, key);
     results.push({ total: roll.total, name: MATERIALS[key].name });
   }
+  const parts = foundry.utils.deepClone(monster.getFlag(MODULE_ID, "parts") ?? []);
+  for (const part of parts) {
+    if (!part.broken || part.rewardClaimed || !part.reward) continue;
+    await addMaterial(hunter, part.reward.material, part.reward.quantity);
+    part.rewardClaimed = true;
+    results.push({
+      total: game.i18n.localize("MHM.Parts.Bonus"),
+      name: `${MATERIALS[part.reward.material].name} x${part.reward.quantity}`
+    });
+  }
+  await monster.setFlag(MODULE_ID, "parts", parts);
   await monster.setFlag(MODULE_ID, "harvested", true);
   const list = results.map(result =>
     `<li><strong>${result.total}</strong>: ${foundry.utils.escapeHTML(result.name)}</li>`).join("");

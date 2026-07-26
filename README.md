@@ -118,6 +118,9 @@ The supplied homebrew PDFs and Monster Buddy are research sources, not bundled
 assets. Data must be normalized, attributed, checked for redistribution rights,
 and adapted into original Foundry compendia before release.
 
+See [the content source policy](docs/source-policy.md) for the complete source
+hierarchy and the Wiki Monster Hunter indexes used by the conversion.
+
 Monster Buddy is especially useful for monstie attack types, eggs, riding
 actions, genes, habitats and weaknesses:
 

@@ -1,0 +1,3 @@
+# Private-use artwork is installed locally and is never published with the module.
+assets/dice/private/*
+!assets/dice/private/README.md
